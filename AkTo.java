@@ -2,6 +2,7 @@ import java.util.Random;
 
 public class AkTo extends Thread implements GameCharacter
 {
+    // Attributes
     private String name;
     private int hp;
     private int atk;
@@ -9,6 +10,7 @@ public class AkTo extends Thread implements GameCharacter
 
     Random rand = new Random();
 
+    // Constructor
     public AkTo(int hp, int atk, int def, String name)
     {
         this.hp = hp;
@@ -17,6 +19,7 @@ public class AkTo extends Thread implements GameCharacter
         this.name = name;
     }
 
+    // Methods
     @Override
     public void start()
     {

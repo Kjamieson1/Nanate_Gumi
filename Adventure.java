@@ -17,10 +17,12 @@ public class Adventure
                 + "3. Akashi Takenori\n"
                 + "Please enter the number of your choice:");
 
+        // Creating instances of each character
         HaMo HaMo = new HaMo(120, 25, 15, "Hayami Morihisa");
         NaKi NaKi = new NaKi( 100, 30, 15, "Nakagawa Kiyohide");
         AkTo AkTo = new AkTo(100, 20, 10, "Akashi Takenori");
 
+        // Getting user input and starting the chosen character's adventure
         try {
                 switch (sc.nextInt()) 
                 {
@@ -40,6 +42,7 @@ public class Adventure
             System.out.println("Invalid input. Please enter a number between 1 and 3.");
         }
 
+        // Ensuring the main thread waits for the chosen character to finish
         try {
             AkTo.join();
         } catch (InterruptedException e) {

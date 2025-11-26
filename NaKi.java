@@ -2,11 +2,13 @@ import java.util.Random;
 
 public class NaKi extends Thread implements GameCharacter
 {
+    // Attributes
     private String name;
     private int hp;
     private int atk;
     private int def;
 
+    // Constructor
     public NaKi(int hp, int atk, int def, String name)
     {
         this.hp = hp;
@@ -15,6 +17,7 @@ public class NaKi extends Thread implements GameCharacter
         this.name = name;
     }
 
+    // Methods
     @Override
     public void start()
     {
@@ -30,15 +33,15 @@ public class NaKi extends Thread implements GameCharacter
     }
 
     @Override
-    public int attack()
+    public void attack()
     {
-        return atk;
+        
     }
 
     @Override
-    public int defense()
+    public void defense()
     {
-        return def;
+        
     }
 
     @Override
