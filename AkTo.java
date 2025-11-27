@@ -11,10 +11,9 @@ public class AkTo extends Thread implements GameCharacter
     Random rand = new Random();
 
     // Constructor
-    public AkTo(int hp, int atk, int def, String name)
+    public AkTo(int hp, int def, String name)
     {
         this.hp = hp;
-        this.atk = atk;
         this.def = def;
         this.name = name;
     }
@@ -79,5 +78,5 @@ public class AkTo extends Thread implements GameCharacter
             System.out.println("The knight's adventure was interrupted!");
         }
     }
-    
+   
 }

@@ -18,9 +18,9 @@ public class Adventure
                 + "Please enter the number of your choice:");
 
         // Creating instances of each character
-        HaMo HaMo = new HaMo(120, 25, 15, "Hayami Morihisa");
-        NaKi NaKi = new NaKi( 100, 30, 15, "Nakagawa Kiyohide");
-        AkTo AkTo = new AkTo(100, 20, 10, "Akashi Takenori");
+        HaMo HaMo = new HaMo(120, 15, "Hayami Morihisa");
+        NaKi NaKi = new NaKi( 100, 15, "Nakagawa Kiyohide");
+        AkTo AkTo = new AkTo(100, 10, "Akashi Takenori");
 
         // Getting user input and starting the chosen character's adventure
         try {

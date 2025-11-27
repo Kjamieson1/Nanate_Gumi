@@ -9,12 +9,12 @@ public class HaMo extends Thread implements GameCharacter
     private int atk;
     private int def;
     private Scanner sc = new Scanner(System.in);
+    private Random ra = new Random();
 
     // Constructor
-    public HaMo(int hp, int atk, int def, String name)
+    public HaMo(int hp, int def, String name)
     {
         this.hp = hp;
-        this.atk = atk;
         this.def = def;
         this.name = name;
     }
@@ -34,9 +34,7 @@ public class HaMo extends Thread implements GameCharacter
                 + "1. Defend the province \n"
                 + "2. Flee to safety \n");
 
-        int choice = sc.nextInt();
-
-        switch(choice)
+        switch(sc.nextInt())
         {
             case 1:
                 System.out.println("Choosing to defend the province! \n"
@@ -44,13 +42,114 @@ public class HaMo extends Thread implements GameCharacter
                         + "Arrving at the castle, he readies his katana and heads to the front of the lines! \n");
                 
                 System.out.println("A samurai from the opposing Oda forces approaches");
-                Enemy OdaEnemy = new Enemy("Oda Samurai", 25, 1, 3);
-                // Going to add a fitgh here between player and enemy.
+                Enemy OdaEnemy = new Enemy("Oda Samurai", 50, 50, 50);
+                Enemy OdaEnemy2 = new Enemy("Oda Samurai", 50, 50, 50);
+                Enemy OdaEnemyBoss = new Enemy("Oda Nobunaga", 1000, 1000, 1000);
+
+                while(OdaEnemy.health() > 0 && hp > 0)
+                {
+                    int HaMoDam = ra.nextInt(15, 20);
+                    System.out.println( "1. Attack \n"
+                        + "2. Defend");
+
+                    switch(sc.nextInt())
+                    {
+                        case 1:
+                            attack();
+                            OdaEnemy.hp -= HaMoDam;
+                            System.out.println("You dealt " + HaMoDam + " damage to the enemy! \n"
+                                    + OdaEnemy.name + " stricks back!");
+                        
+                            hp -= OdaEnemy.attack();
+
+                            System.out.println("You received " + OdaEnemy.attack() + " damage! \n"
+                                    + "Your current health is: " + hp + "\n"
+                                    + OdaEnemy.name + " current health is: " + OdaEnemy.health() + "\n");
+                            break;
+                        case 2:
+                            defense();
+                            hp -= (OdaEnemy.attack() - def);
+                            System.out.println("You defended against the enemy's attack! \n"
+                                    + "You received " + (OdaEnemy.attack() - def) + " damage! \n"
+                                    + "Your current health is: " + hp + "\n"
+                                    + OdaEnemy.name + " current health is: " + OdaEnemy.health() + "\n");
+                            break;
+                    }   
+                }
+
+                System.out.println("The battle rages on! \n"
+                        + name + " has defeated the first wave of Oda samurai! \n"
+                        + "But more enemies approach! \n");
+
+                while(OdaEnemy2.health() > 0 && hp > 0)
+                {
+                    int HaMoDam = ra.nextInt(15000, 20000);
+                    System.out.println( "1. Attack \n"
+                        + "2. Defend");
+
+                    switch(sc.nextInt())
+                    {
+                        case 1:
+                            attack();
+                            OdaEnemy2.hp -= HaMoDam;
+                            System.out.println("You dealt " + HaMoDam + " damage to the enemy! \n"
+                                    + OdaEnemy2.name + " stricks back!");
+                        
+                            hp -= OdaEnemy2.attack();
+                            System.out.println("You received " + OdaEnemy2.attack() + " damage! \n"
+                                    + "Your current health is: " + hp + "\n"
+                                    + OdaEnemy2.name + " current health is: " + OdaEnemy2.health() + "\n");
+                            break;
+                        case 2:
+                            defense();
+                            hp -= (OdaEnemy2.attack() - def);
+                            System.out.println("You defended against the enemy's attack! \n"
+                                    + "You received " + (OdaEnemy2.attack() - def) + " damage! \n"
+                                    + "Your current health is: " + hp + "\n"
+                                    + OdaEnemy2.name + " current health is: " + OdaEnemy2.health() + "\n");
+                            break;
+                    }   
+                }
+
+                System.out.println("The battle intensifies! \n"
+                        + name + " has defeated the second wave of Oda samurai! \n"
+                        + "But their leader, Oda Nobunaga himself approaches! \n");
+
+                while(OdaEnemyBoss.health() > 0 && hp > 0)
+                {
+                    int HaMoDam = ra.nextInt(15000, 20000);
+                    System.out.println( "1. Attack \n"
+                        + "2. Defend");
+
+                    switch(sc.nextInt())
+                    {
+                        case 1:
+                            attack();
+                            OdaEnemyBoss.hp -= HaMoDam;
+                            System.out.println("You dealt " + HaMoDam + " damage to the enemy! \n"
+                                    + OdaEnemyBoss.name + " stricks back!");
+                        
+                            hp -= OdaEnemyBoss.attack();
+                            System.out.println("You received " + OdaEnemyBoss.attack() + " damage! \n"
+                                    + "Your current health is: " + hp + "\n"
+                                    + OdaEnemyBoss.name + " current health is: " + OdaEnemyBoss.health() + "\n");
+                            break;
+                        case 2:
+                            defense();
+                            hp -= (OdaEnemyBoss.attack() - def);
+                            System.out.println("You defended against the enemy's attack! \n"
+                                    + "You received " + (OdaEnemyBoss.attack() - def) + " damage! \n"
+                                    + "Your current health is: " + hp + "\n"
+                                    + OdaEnemyBoss.name + " current health is: " + OdaEnemyBoss.health() + "\n");
+                            break;
+                    }   
+                }
 
                 System.out.println("The battle is fierce \n"
                         + "Azai castle falls to the Oda forces. \n"
                         + name + " fought bravely buy was ultimataly defeated"); 
-                break;
+                System.exit(0);
+
             case 2:
                 System.out.println(name + " chose to flee to safety! \n");
                 run();
@@ -63,30 +162,51 @@ public class HaMo extends Thread implements GameCharacter
     @Override
     public int health()
     {
+         if (hp <= 0)
+        {
+           return 0;
+        }
         return hp;
     }
 
+    //Want to expand by adding different attack moves
     @Override
     public void attack()
     {
-
+        int x = ra.nextInt(5);
+        try{
+            for (int i = 1; i <= x; i++)
+            {
+                System.out.println(name + " swings his katana \n");
+                Thread.sleep(ra.nextInt(1000) + 500);
+            }
+        } catch (InterruptedException e) {
+        }
     }
 
+    //Want to expand by adding different defense moves
     @Override
     public void defense()
     {
-    
+        int x = ra.nextInt(3);
+        try{
+            for (int i = 1; i <= x; i++)
+            {
+                System.out.println(name + " gets in standing position");
+                Thread.sleep(ra.nextInt(1000) + 500);
+            }
+        } catch (InterruptedException e) {
+        }
     }
 
     @Override
     public void run()
     {
-        Random rand = new Random();
         try{
             for (int i = 1; i <= 2; i++)
             {
                 System.out.println(name + ": Step " + i);
-                Thread.sleep(rand.nextInt(1000) + 500);
+                Thread.sleep(ra.nextInt(1000) + 500);
             }
         }
         catch (InterruptedException e)

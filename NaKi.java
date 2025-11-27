@@ -9,10 +9,9 @@ public class NaKi extends Thread implements GameCharacter
     private int def;
 
     // Constructor
-    public NaKi(int hp, int atk, int def, String name)
+    public NaKi(int hp, int def, String name)
     {
         this.hp = hp;
-        this.atk = atk;
         this.def = def;
         this.name = name;
     }
@@ -66,5 +65,6 @@ public class NaKi extends Thread implements GameCharacter
     {
 
     }
-    
+
+   
 }
