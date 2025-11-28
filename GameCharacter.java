@@ -6,5 +6,4 @@ public interface GameCharacter
     public void attack();
     public void defense();
     public void run();
-    public void act();
 }

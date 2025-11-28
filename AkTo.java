@@ -25,8 +25,6 @@ public class AkTo extends Thread implements GameCharacter
         System.out.println("The brave knight sets out on a quest to slay the dragon!");
         run();
         System.out.println("The knight returns victorious!");
-        act();
-        System.out.println("The knight returns victorious!");
     }
 
     @Override
@@ -62,21 +60,4 @@ public class AkTo extends Thread implements GameCharacter
             System.out.println("The knight's adventure was interrupted!");
         }
     }
-    
-    @Override
-    public void act()
-    {
-        try{
-            for (int i = 1; i <= 5; i++)
-            {
-                System.out.println(name + ": Attack " + i);
-                Thread.sleep(rand.nextInt(1000) + 500);
-            }
-        }
-        catch (InterruptedException e)
-        {
-            System.out.println("The knight's adventure was interrupted!");
-        }
-    }
-   
 }

@@ -59,12 +59,5 @@ public class NaKi extends Thread implements GameCharacter
             System.out.println("The knight's adventure was interrupted!");
         }
     }
-    
-    @Override
-    public void act()
-    {
-
-    }
-
    
 }
