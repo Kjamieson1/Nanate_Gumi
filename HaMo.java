@@ -21,8 +21,9 @@ public class HaMo extends Thread implements GameCharacter
 
     // Methods
     @Override
-    public void start()
+    public void run()
     {
+
         System.out.println("Born in the 1550's Edo period Japan, located in the Omi province. \n"
                 + name +" is a simi wealthy samurai whos family owns lands in the area. \n"
                 + "Serving under the Azai clan. \n"
@@ -82,13 +83,23 @@ public class HaMo extends Thread implements GameCharacter
                                         + "Your current health is: " + hp + "\n"
                                         + enemy.name + " current health is: " + enemy.health() + "\n");
                                 break;
+                            default:
+                                System.out.println("Invalid choice. Defaulting to Hayami Morihisa.");
+                                break;
                             }
 
                             if(enemy.health() <= 0)
                             {
                                 System.out.println(name + " has defeated an enemy samurai! \n"
-                                        + "Another enemy approaches!"
+                                        + "Another enemy approaches!");
+                            }
+
+                            if(hp <= 0)
+                            {
+                                System.out.println(name + " has fallen in battle... \n"
+                                        + "The mission ends here."
                                 );
+                                return; // Exit if the character has fallen
                             }
                     }
                 }
@@ -102,12 +113,15 @@ public class HaMo extends Thread implements GameCharacter
             // Choosing to flee to safety
             case 2:
                 System.out.println(name + " chose to flee to safety! \n");
-                run();
+                running();
                 System.out.println(name + " escaped the battle but lost his home! \n"
                         + "Not sure where to go" + name + " wanders aimlessly around the Omi province. \n"
                         + "After a few days of wondering as a ronin, he runs into Toyotomi Hideyoshi. \n"
                         + "Impressed by " + name + "'s skills, Hideyoshi offers him a position in his growing forces. \n"
                         + "Accepting the offer, he joins Hideyoshi's army and begins a new chapter in his life. \n");
+                break;
+            default:
+                System.out.println("Invalid choice. Defaulting to Hayami Morihisa.");
                 break;
         }
 
@@ -166,6 +180,9 @@ public class HaMo extends Thread implements GameCharacter
                                 + "Your current health is: " + hp + "\n"
                                 + enemy.name + " current health is: " + enemy.health() + "\n");
                         break;
+                    default:
+                        System.out.println("Invalid choice. Defaulting to Hayami Morihisa.");
+                        break;
                     }
 
                     if(enemy.health() <= 0)
@@ -183,6 +200,42 @@ public class HaMo extends Thread implements GameCharacter
             }
         }
 
+        System.out.println(name + " has successfully helped Toyotomi Hideyoshi in unifying Japan! \n"
+                + "Through his loyalty and skill, he has risen from a ronin to a respected samurai in one of the most powerful armies in Japan. \n"
+                + "His journey is a testament to the resilience and determination of the samurai spirit. \n"
+                + "Though this is not the end of " + name + "'s story, it marks a significant chapter in his life as a samurai. \n"
+                + "Other chapter which is hard to look on is the battle of Shizugatake. \n"
+                + "Let's take a closer look at what happened there...\n");
+
+
+    }
+
+    public void start()
+    {
+       new Thread(() -> {
+            try {
+                for (int i = 1; i == 1; i++)
+                {
+                    System.out.println(name + " stands ready for the battle! \n");
+                    while(Adventure.sharedBoss.health() > 0)
+                    {
+                        synchronized (Adventure.bossLock) {
+                            if (Adventure.sharedBoss.health() <= 0) {
+                                break; // Exit if boss is already defeated
+                            }
+                            attack();
+                            int damage = ra.nextInt(20, 30);
+                            Adventure.sharedBoss.hp -= damage;
+                            System.out.println(name + " dealt " + damage + " damage to " + Adventure.sharedBoss.getName() + "! \n"
+                                    + Adventure.sharedBoss.getName() + " current health is: " + Adventure.sharedBoss.health() + "\n");
+                        }
+                        // Simulate time between attacks
+                        Thread.sleep(500);
+                    } 
+                }
+        } catch (InterruptedException e) {
+        }
+            }).start();
     }
 
     @Override
@@ -258,7 +311,7 @@ public class HaMo extends Thread implements GameCharacter
     }
 
     @Override
-    public void run()
+    public void running()
     {
         int x = ra.nextInt(3);
         try{
