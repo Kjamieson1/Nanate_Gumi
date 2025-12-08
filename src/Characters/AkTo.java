@@ -1,5 +1,13 @@
+package Characters;
+
 import java.util.Random;
 import java.util.Scanner;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.io.IOException;
+
+import Main.Adventure;
 
 public class AkTo extends Thread implements GameCharacter
 {
@@ -10,6 +18,13 @@ public class AkTo extends Thread implements GameCharacter
     private int def;
     private Random ra = new Random();
     private Scanner sc = new Scanner(System.in);
+    private HttpClient client = HttpClient.newHttpClient();
+    //Limit to 1 question per request, filtered by history category
+    private String apiUrl = "https://the-trivia-api.com/v2/questions?limit=1&categories=history&difficulties=medium";
+    HttpRequest request = HttpRequest.newBuilder()
+                .uri(java.net.URI.create(apiUrl))
+                .GET()
+                .build();
 
 
     // Constructor
@@ -50,7 +65,8 @@ public class AkTo extends Thread implements GameCharacter
             while(enemy.health() > 0 && hp > 0)
             {
                 System.out.println( "1. Attack \n"
-                        + "2. Defend");
+                        + "2. Defend\n"
+                        + "3. Trivia Break");
 
                     switch(sc.nextInt())
                     {
@@ -68,11 +84,23 @@ public class AkTo extends Thread implements GameCharacter
                         break;
                     case 2:
                         defense();
-                        hp -= (enemy.attack() - def);
-                        System.out.println("You defended against the enemy's attack! \n"
-                                + "You received " + (enemy.attack() - def) + " damage! \n"
-                                + "Your current health is: " + hp + "\n"
-                                + enemy.name + " current health is: " + enemy.health() + "\n");
+                        if (enemy.attack() - def < 0) {
+                            System.out.println("Your defense was too high! You received no damage!\n"
+                                    + "Your current health is: " + hp + "\n"
+                                    + enemy.name + " current health is: " + enemy.health() + "\n");
+                            break;
+                        }
+                        else
+                        {
+                            System.out.println("You took some damage despite your defense!\n");
+                            hp -= (enemy.attack() - def);
+                            System.out.println("Your current health is: " + hp + "\n"
+                                    + enemy.name + " current health is: " + enemy.health() + "\n");
+                            break;
+                        }
+                    case 3:
+                        getTriviaQuestion();
+                        System.out.println("Back to battle!\n");
                         break;
                     default:
                         System.out.println("Invalid choice. Defaulting to Hayami Morihisa.");
@@ -328,6 +356,62 @@ public class AkTo extends Thread implements GameCharacter
         catch (InterruptedException e)
         {
             System.out.println("Your mission was interrupted!");
+        }
+    }
+    
+    // Method to fetch and display trivia question from API
+    private void getTriviaQuestion()
+    {
+        try {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            
+            if (response.statusCode() >= 200 && response.statusCode() < 300)
+            {
+                String responseBody = response.body();
+                
+                // Extract question
+                int questionStart = responseBody.indexOf("\"text\":\"") + 8;
+                int questionEnd = responseBody.indexOf("\"", questionStart);
+                
+                // Extract correct answer
+                int answerStart = responseBody.indexOf("\"correctAnswer\":\"") + 17;
+                int answerEnd = responseBody.indexOf("\"", answerStart);
+                
+                if (questionStart > 7 && questionEnd > questionStart && answerStart > 16 && answerEnd > answerStart)
+                {
+                    String question = responseBody.substring(questionStart, questionEnd);
+                    String correctAnswer = responseBody.substring(answerStart, answerEnd);
+                    
+                    System.out.println("\n=== Trivia Break ===");
+                    System.out.println("Question: " + question);
+                    System.out.print("Your answer: ");
+                    
+                    sc.nextLine(); // Clear the buffer from previous nextInt()
+                    String userAnswer = sc.nextLine();
+                    
+                    if (userAnswer.trim().equalsIgnoreCase(correctAnswer))
+                    {
+                        System.out.println("Correct! You gain 10 HP!");
+                        hp += 10;
+                    }
+                    else
+                    {
+                        System.out.println("Wrong! The correct answer was: " + correctAnswer);
+                        System.out.println("You lose 5 HP!");
+                        hp -= 5;
+                    }
+                    System.out.println("Current HP: " + hp);
+                    System.out.println("==================\n");
+                }
+                else
+                {
+                    System.out.println("\nCould not parse trivia question.\n");
+                }
+            }
+        }
+        catch (IOException | InterruptedException e)
+        {
+            System.out.println("Failed to fetch trivia: " + e.getMessage());
         }
     }
 }

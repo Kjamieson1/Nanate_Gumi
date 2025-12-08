@@ -1,3 +1,5 @@
+package Characters;
+
 public class Enemy 
 {
     // Attributes

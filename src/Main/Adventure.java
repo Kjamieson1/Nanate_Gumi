@@ -1,10 +1,17 @@
+package Main;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import Characters.AkTo;
+import Characters.Enemy;
+import Characters.GameCharacter;
+import Characters.HaMo;
+import Characters.NaKi;
+
 public class Adventure 
 {
-    static Enemy sharedBoss = new Enemy("Shizugatake", 100, 50, 30);
-    static Object bossLock = new Object();  // For synchroniztion 
+    public static Enemy sharedBoss = new Enemy("Shizugatake", 100, 50, 30);
+    public static Object bossLock = new Object();  // For synchroniztion 
     public static void main(String[] args)
     {
         Scanner sc = new Scanner(System.in);
@@ -22,7 +29,7 @@ public class Adventure
         // Creating instances of each character
         HaMo HaMo = new HaMo(120, 15, "Hayami Morihisa");
         NaKi NaKi = new NaKi( 100, 15, "Nakagawa Kiyohide");
-        AkTo AkTo = new AkTo(100, 10, "Akashi Takenori");
+        AkTo AkTo = new AkTo(100, 0, "Akashi Takenori");
 
         GameCharacter[] samurai  = {HaMo, NaKi, AkTo};
         

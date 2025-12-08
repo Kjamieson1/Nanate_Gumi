@@ -1,3 +1,5 @@
+package Characters;
+
 // GameCharacter interface defining the common behaviors for all the game characters
 public interface GameCharacter 
 {

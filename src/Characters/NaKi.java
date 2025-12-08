@@ -1,5 +1,9 @@
+package Characters;
+
 import java.util.Random;
 import java.util.Scanner;
+
+import Main.Adventure;
 
 public class NaKi extends Thread implements GameCharacter
 {
