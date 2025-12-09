@@ -96,10 +96,9 @@ public class Adventure
         //Showing Parrallelism
 
         System.out.println("All samurai have completed their own missions! \n"
-                + "I'll revive any fallen samurai for the next part of the adventure. \n"
-                + "Now, we have some background on each of them. \n"
+                + "I Hope you kept everyone alive! \n"
                 + "Let's see how they worked together as a team.\n"
-                + "In the Nanate gumi. In the battle of Shizugatake.\n");
+                + "The Nanate gumi. In the battle of Shizugatake.\n");
 
         GameCharacter[] samuraiTeam  = {HaMo, NaKi, AkTo};
         Thread[] samuraiThreadsTeam = {HaMo, NaKi, AkTo};

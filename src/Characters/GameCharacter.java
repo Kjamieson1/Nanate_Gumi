@@ -8,5 +8,5 @@ public interface GameCharacter
     public void defense();
     public void run();
     public void running();
-    private void getTriviaQuestion();
+    public boolean playedCheck();
 }
