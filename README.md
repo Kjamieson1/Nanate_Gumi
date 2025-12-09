@@ -51,7 +51,7 @@ None
 
 ### How to Play
 - Choose one of three samurai to experience their backstory (1-3)
-- Make combat decisions during battles (Attack/Defend)
+- Make combat decisions during battles (Attack/Defend/Triva(to get health))
 - After all backstories complete, the three samurai fight the shared boss together
 - Watch the threads run in parallel as they attack simultaneously
 
@@ -85,9 +85,6 @@ synchronized (Adventure.bossLock) {
 1. **Prevents Race Conditions** - Multiple threads accessing `sharedBoss.hp` simultaneously could cause incorrect health values
 2. **Ensures Thread Safety** - Only one samurai can modify boss health at a time
 3. **Demonstrates Concurrency** - Three threads run in parallel but coordinate access to shared resource
-4. **Visual Feedback** - Random sleep times create visible thread interleaving in console output
-
-This design showcases both independent thread execution (backstories) and coordinated parallel execution (shared boss battle) in a single program.
 
 ## API
 https://the‑trivia‑api.com/v2/questions

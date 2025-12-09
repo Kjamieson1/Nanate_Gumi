@@ -16,41 +16,69 @@ public class Adventure
     {
         Scanner sc = new Scanner(System.in);
  
-        System.out.println("In this game we will focus on three of the samurai of the Nanate gumi.\n"
+        System.out.println("========== Nanate Gumi ===========\n"
+                +""
+                +"In this game we will focus on three of the samurai of the Nanate gumi.\n"
                 + "Hayami Morihisa (Known as the learder).\n"
                 + "Nakagawa Kiyohide (Known as the strategist).\n"
                 + "Akashi Takenori (Known as the fierce warrior). \n"
                 + "We will follow through their lives seeing the progression of the Nanate gumi.\n"
-                + "1. Hayami Morihisa\n"
-                + "2. Nakagawa Kiyohide\n"
-                + "3. Akashi Takenori\n"
-                + "Choose a samurai to learn more about them (1-3): ");
+                + "_____________________________");
 
         // Creating instances of each character
         HaMo HaMo = new HaMo(120, 15, "Hayami Morihisa");
         NaKi NaKi = new NaKi( 100, 15, "Nakagawa Kiyohide");
-        AkTo AkTo = new AkTo(100, 0, "Akashi Takenori");
+        AkTo AkTo = new AkTo(100, 10, "Akashi Takenori");
 
         GameCharacter[] samurai  = {HaMo, NaKi, AkTo};
-        
-        switch (sc.nextInt())
+
+        for(int i = 0; i <= 2; i++)
         {
+            System.out.println("1. Hayami Morihisa\n"
+                + "2. Nakagawa Kiyohide\n"
+                + "3. Akashi Takenori\n"
+                + "4. Skip to Boss battle \n"
+                + "Choose a samurai to learn more about them (1-3):");
+            switch (sc.nextInt())
+            {
             case 1:
-                System.out.println("You have chosen Hayami Morihisa!");
+                if(HaMo.health() <= 0 || HaMo.playedCheck() == true)
+                {
+                    System.out.println("You can not try again in the same game. \n");
+                    i -= 1;
+                    break;
+                }
+                System.out.println("You have chosen Hayami Morihisa! \n");
                 HaMo.run();  // Play HaMo's backstory
                 break;
             case 2:
+                if(NaKi.health() <= 0 || NaKi.playedCheck() == true)
+                {
+                    System.out.println("You can not try again in the same game. \n");
+                    i -= 1;
+                    break;
+                }
                 System.out.println("You have chosen Nakagawa Kiyohide!");
                 NaKi.run();  // Play NaKi's backstory
                 break;
             case 3:
+                if(AkTo.health() <= 0 || AkTo.playedCheck() == true)
+                {
+                    System.out.println("You can not try again in the same game. \n");
+                    i -= 1;
+                    break;
+                }
                 System.out.println("You have chosen Akashi Takenori!");
                 AkTo.run();  // Play AkTo's backstory
+                break;
+            case 4: 
+                i += 3;
                 break;
             default:
                 System.out.println("Invalid choice. Defaulting to Hayami Morihisa.");
                 HaMo.run();
                 break;
+            }
         }
 
         //LAMBDA EXPRESSIONS
