@@ -17,7 +17,7 @@ public class Adventure
         Scanner sc = new Scanner(System.in);
  
         System.out.println("========== Nanate Gumi ===========\n"
-                +""
+                +"\n"
                 +"In this game we will focus on three of the samurai of the Nanate gumi.\n"
                 + "Hayami Morihisa (Known as the learder).\n"
                 + "Nakagawa Kiyohide (Known as the strategist).\n"
@@ -116,9 +116,33 @@ public class Adventure
                 // Wait for each to complete
                 samuraiThreadTeam.join();
             }
+            // Delay to ensure all console output and final attacks complete
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             System.out.println("Mission was interrupted!");
         }
+
+        // Synchronized to prevent interleaving with any remaining thread output
+        synchronized (bossLock) {
+            System.out.println("\n========== Battle Complete! ===========");
+            
+            // Check if boss is defeated
+            if (sharedBoss.health() <= 0) {
+                System.out.println("The Shizugatake boss has been defeated!");
+                System.out.println("The Nanate gumi fought bravely together.");
+                System.out.println("\nThe battle is won! The samurai have triumphed!");
+            } else {
+                System.out.println("The battle continues...");
+                System.out.println("\nThe samurai retreat to fight another day...");
+            }
+        }
+
+        // Final survivor count
+        long finalSurvivors = Arrays.stream(samuraiTeam)
+            .filter(s -> s.health() > 0)
+            .count();
+        System.out.println("\nSurviving warriors: " + finalSurvivors + "/3");
+        System.out.println("\n===== End of Adventure =====");
 
     }
 }

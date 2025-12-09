@@ -159,7 +159,7 @@ public class HaMo extends Thread implements GameCharacter
                 running();
                 System.out.println("========== Hayami Morihisa =========== \n"
                         + name + " escaped the battle but lost his home! \n"
-                        + "Not sure where to go" + name + " wanders aimlessly around the Omi province. \n"
+                        + "Not sure where to go " + name + " wanders aimlessly around the Omi province. \n"
                         + "After a few days of wondering as a ronin, he runs into Toyotomi Hideyoshi. \n"
                         + "Impressed by " + name + "'s skills, Hideyoshi offers him a position in his growing forces. \n"
                         + "Accepting the offer, he joins Hideyoshi's army and begins a new chapter in his life. \n");
@@ -170,12 +170,12 @@ public class HaMo extends Thread implements GameCharacter
         }
 
         System.out.println("========== Hayami Morihisa =========== \n"
-                +"14 Years after the fall of the Azai clan" + name + " has risen through the ranks of Hideyoshi's forces. \n"
+                +"14 Years after the fall of the Azai clan " + name + " has risen through the ranks of Hideyoshi's forces. \n"
                 + "He has become one of Hideyoshi's close retainers and a trusted samurai in his army. \n"
                 + "Participating in many battles and campaigns, he has proven his loyalty and skill on the battlefield. \n"
                 + name + " next mission is to compain with Hideyoshi to unify Japan under his rule. \n"
                 + "He is to set out to conquer Odawara"
-                + "");
+                + "\n");
 
         // Boosting stats for next battle
         hp += 100;
@@ -184,7 +184,7 @@ public class HaMo extends Thread implements GameCharacter
         System.out.println("When arriving at the Odawara castle, " + name + " is met with a strong force ahead of him. \n"
                 + "Being reminded of his past losses and the fall of his previous clan. \n"
                 + "And a chance to redeem his clans honor. \n"
-                + ""
+                + " \n"
                 + "Unbothered He decides to press forward and engage the forces head on. \n");
 
         Enemy OdaEnemy3 = new Enemy("Oda Samurai", 50, 50, 50);

@@ -276,24 +276,21 @@ public class AkTo extends Thread implements GameCharacter
         new Thread(() -> {
 
             try {
-                for (int i = 1; i == 1; i++)
+                System.out.println(name + " stands ready for the battle! \n");
+                while(true)
                 {
-                    System.out.println(name + " stands ready for the battle! \n");
-                    while(Adventure.sharedBoss.health() > 0)
-                    {
-                        synchronized (Adventure.bossLock) {
-                            if (Adventure.sharedBoss.health() <= 0) {
-                                break; // Exit if boss is already defeated
-                            }
-                            attack();
-                            int damage = ra.nextInt(20, 30);
-                            Adventure.sharedBoss.hp -= damage;
-                            System.out.println(name + " dealt " + damage + " damage to " + Adventure.sharedBoss.getName() + "! \n"
-                                    + Adventure.sharedBoss.getName() + " current health is: " + Adventure.sharedBoss.health() + "\n");
+                    synchronized (Adventure.bossLock) {
+                        if (Adventure.sharedBoss.health() <= 0) {
+                            break; // Exit if boss is already defeated
                         }
-                        // Simulate time between attacks
-                        Thread.sleep(500);
-                    } 
+                        attack();
+                        int damage = ra.nextInt(20, 30);
+                        Adventure.sharedBoss.hp -= damage;
+                        System.out.println(name + " dealt " + damage + " damage to " + Adventure.sharedBoss.getName() + "! \n"
+                                + Adventure.sharedBoss.getName() + " current health is: " + Adventure.sharedBoss.health() + "\n");
+                    }
+                    // Simulate time between attacks
+                    Thread.sleep(500);
                 }
         } catch (InterruptedException e) {
         }
